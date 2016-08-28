@@ -1,19 +1,18 @@
 package eden.project.dao;
 
+import eden.project.exception.AppException;
+import eden.project.model.ReservationRequest;
+import eden.project.model.RestaurantProfile;
+import eden.project.model.Table;
+import eden.project.util.DBUtils;
+import org.json.simple.JSONObject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.simple.JSONObject;
-
-import eden.project.exception.AppException;
-import eden.project.model.ReservationRequest;
-import eden.project.model.RestaurantProfile;
-import eden.project.model.Table;
-import eden.project.util.DBUtils;
 
 public class AdminDAO {
 
@@ -143,6 +142,36 @@ public class AdminDAO {
 			throw new AppException(e.getMessage(), e.getCause());
 		}
 		
+		return resPro;
+	}
+
+	public RestaurantProfile fnFetchProfileDetails() throws AppException{
+		
+		Connection conn = DBUtils.connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		RestaurantProfile resPro = new RestaurantProfile();
+
+		try {
+			ps = conn.prepareStatement("SELECT * FROM RESTAURANT_PROFILE");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				
+				resPro.setResName(rs.getString(1));
+				resPro.setResEmail(rs.getString(2));
+				resPro.setResPhoneNo(rs.getString(3));
+				resPro.setResAddress(rs.getString(4));
+				resPro.setIsAutoAssign(rs.getString(5));
+				resPro.setDaysClose(rs.getString(6));
+				resPro.setResOpenTime(rs.getString(7));
+				resPro.setResCloseTime(rs.getString(8));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AppException(e.getMessage(), e.getCause());
+		}
+
 		return resPro;
 	}
 }

@@ -1,16 +1,16 @@
 package eden.project.dao;
 
+import eden.project.exception.AppException;
+import eden.project.model.Reservation;
+import eden.project.model.ReservationRequest;
+import eden.project.util.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import eden.project.exception.AppException;
-import eden.project.model.Reservation;
-import eden.project.model.ReservationRequest;
-import eden.project.util.DBUtils;
 
 public class ReservationDAO {
 
@@ -47,12 +47,13 @@ public class ReservationDAO {
 		return reservations;
 	}
 
-	public Reservation fnGetReservationByResId(int resId) throws AppException {
+	public ReservationRequest fnGetReservationByResId(int resId)
+			throws AppException {
 
 		Connection conn = DBUtils.connect();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Reservation res = new Reservation();
+		ReservationRequest res = new ReservationRequest();
 
 		try {
 			ps = conn
@@ -69,6 +70,19 @@ public class ReservationDAO {
 				res.setToTime(rs.getString(5));
 				res.setPartySize(rs.getInt(6));
 				res.setNotes(rs.getString(7));
+
+				ps = conn
+						.prepareStatement("SELECT * FROM CUSTOMER_INFO WHERE CUSTOMERID = ?");
+				ps.setInt(1, res.getCustomerId());
+				rs = ps.executeQuery();
+
+				if (rs.next()) {
+
+					res.setFirstName(rs.getString(2));
+					res.setLastName(rs.getString(3));
+					res.setPhoneNo(rs.getString(4));
+					res.setEmail(rs.getString(5));
+				}
 			}
 
 		} catch (SQLException e) {
@@ -156,6 +170,8 @@ public class ReservationDAO {
 				resReq.setReservationId(rs.getInt(1));
 			}
 
+			// resReq.setReservationDate(strToDate(resReq.getReservationDate()));
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AppException(e.getMessage(), e.getCause());
@@ -164,14 +180,15 @@ public class ReservationDAO {
 		return resReq;
 	}
 
-	public ReservationRequest fnEditReservation(ReservationRequest resReq) throws AppException {
+	public ReservationRequest fnEditReservation(ReservationRequest resReq)
+			throws AppException {
 
 		Connection conn = DBUtils.connect();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			
+
 			ps = conn
 					.prepareStatement("SELECT CUSTOMERID FROM CUSTOMER_INFO WHERE FIRSTNAME = ? AND LASTNAME = ?");
 			ps.setString(1, resReq.getFirstName());
@@ -198,7 +215,7 @@ public class ReservationDAO {
 					resReq.setCustomerId(rs.getInt(1));
 				}
 			}
-			
+
 			ps = conn
 					.prepareStatement("UPDATE RESERVATION_INFO SET CUSTOMERID = ?, DATE = str_to_date(?,'%m-%d-%Y'), FROMTIME = ?, TOTIME = ?, PARTYSIZE = ?, NOTES = ?, TABLEASSIGNED = ? WHERE RESERVATIONID = ?");
 			ps.setInt(1, resReq.getCustomerId());
@@ -207,8 +224,8 @@ public class ReservationDAO {
 			ps.setString(4, resReq.getToTime());
 			ps.setInt(5, resReq.getPartySize());
 			ps.setString(6, resReq.getNotes());
-			ps.setInt(7, resReq.getReservationId());
-			ps.setInt(8, resReq.getTableAssigned());
+			ps.setInt(7, resReq.getTableAssigned());
+			ps.setInt(8, resReq.getReservationId());
 
 			ps.executeUpdate();
 
@@ -218,5 +235,22 @@ public class ReservationDAO {
 		}
 
 		return resReq;
+	}
+
+	public void fnCancelReservation(int resId) throws AppException{
+		
+		Connection conn = DBUtils.connect();
+		PreparedStatement ps = null;
+		
+		try {
+			ps = conn
+					.prepareStatement("DELETE FROM RESERVATION_INFO WHERE RESERVATIONID = ?");
+			ps.setInt(1, resId);
+
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,27 +1,18 @@
 package eden.project.rest;
 
+import eden.project.dao.ReservationDAO;
+import eden.project.exception.AppException;
+import eden.project.model.Reservation;
+import eden.project.model.ReservationRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
-
-import eden.project.dao.ReservationDAO;
-import eden.project.exception.AppException;
-import eden.project.model.Reservation;
-import eden.project.model.ReservationRequest;
+import java.util.List;
 
 @Path("/reservations")
 @Api(tags = { "/reservations" })
@@ -55,8 +46,8 @@ public class ReservationController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 500, message = "Internal Server Error"),
 			@ApiResponse(code = 404, message = "Not Found"), })
-	public Reservation getReservationsByCust(@PathParam("id") int resId) {
-		Reservation reservationsById = null;
+	public ReservationRequest getReservationsByCust(@PathParam("id") int resId) {
+		ReservationRequest reservationsById = null;
 		try {
 			ReservationDAO resDao = new ReservationDAO();
 			reservationsById = resDao.fnGetReservationByResId(resId);
@@ -94,7 +85,7 @@ public class ReservationController {
 	}
 
 	@PUT
-	@Path("/editreservatoin/{resId}")
+	@Path("/editreservation/{resId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Edit Reservation", notes = "This API takes all the information from about reservation and edits it")
@@ -113,5 +104,21 @@ public class ReservationController {
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
 		}
 		return resReq;
+	}
+	
+	@POST
+	@Path("/{resId}")
+	@ApiOperation(value = "Cancel Reservation", notes = "This API takes the reservation id and cancels the reservation")
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Delete Success"),
+			@ApiResponse(code = 500, message = "Internal Server Error"),
+			@ApiResponse(code = 404, message = "Not Found"), })
+	public void cancelReservation(@PathParam("resId") int resId) {
+		try {
+			ReservationDAO resDao = new ReservationDAO();
+			resDao.fnCancelReservation(resId);
+		} catch (AppException e) {
+			e.printStackTrace();
+			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

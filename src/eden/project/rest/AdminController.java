@@ -1,29 +1,20 @@
 package eden.project.rest;
 
-import java.util.List;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
-
-import org.json.simple.JSONObject;
-
 import eden.project.dao.AdminDAO;
 import eden.project.exception.AppException;
 import eden.project.model.ReservationRequest;
 import eden.project.model.RestaurantProfile;
 import eden.project.model.Table;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.json.simple.JSONObject;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 @Path("/admin")
 @Api(tags = { "/admin" })
@@ -72,6 +63,27 @@ public class AdminController {
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
 		}
 		return obj;
+	}
+	
+	@GET
+	@Path("/profile")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Profile fetching API", notes = "This API would all the details related to restaurant profile")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 500, message = "Internal Server Error"),
+			@ApiResponse(code = 404, message = "Not Found"), })
+	public RestaurantProfile fetchRestaurantProfile() {
+		RestaurantProfile resProObj = null;
+		try {
+			
+			AdminDAO admDao = new AdminDAO();
+			resProObj = admDao.fnFetchProfileDetails();
+
+		} catch (AppException e) {
+			e.printStackTrace();
+			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
+		}
+		return resProObj;
 	}
 	
 	@PUT

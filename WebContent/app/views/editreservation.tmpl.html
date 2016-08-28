@@ -1,0 +1,102 @@
+<div class="container">
+	<div class="container">
+		<form role="form">
+			<div class="row">
+				<div class="col-lg-4">
+					<label for="reservationCode"> Unique Reservation Code :</label> <input
+						type="text" class="form-control" id="reservationCode"
+						placeholder="Enter unique reservation code"
+						ng-model="editVm.reservation.reservationId">
+				</div>
+				<div class="col-lg-2">
+					<label class="hidden2"></label>
+					<button type="submit" ng-click="editVm.cancelResFn()"
+						class="btn btn-group-lg btn-primary form-control">Cancel
+						Reservation</button>
+				</div>
+				<div class="col-lg-2">
+					<label class="hidden2"></label>
+					<button type="submit" ng-click="editVm.fetchResFn()"
+						class="btn btn-group-lg btn-primary form-control">Edit
+						Reservation</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<br>
+
+	<div class="container" ng-hide="editVm.result.show" id="editdiv">
+		<div class="row">
+			<div class="col-lg-4">
+				<label for="fullName"> Name : </label> <input type="text"
+					class="form-control" id="fullName" ng-model="editVm.fullName"
+					disabled>
+			</div>
+			<div class="col-lg-4">
+				<label for="phoneNo"> Phone Number : </label> <input
+					class="form-control" id="phoneNo"
+					ng-model="editVm.reservation.phoneNo" disabled>
+			</div>
+			<div class="col-lg-4">
+				<label for="email"> Email : </label> <input class="form-control"
+					id="email" ng-model="editVm.reservation.email" disabled>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg-6">
+				<label for="date"> Date : </label> <input type="date"
+					class="form-control" id="date"
+					ng-model="editVm.reservation.reservationDate" format-date>
+			</div>
+			<div class="col-lg-3">
+				<label for="fTime"> From Time : </label> <input class="form-control"
+					id="fTime" ng-model="editVm.reservation.fromTime">
+			</div>
+			<div class="col-lg-3">
+				<label for="tTime"> To Time : </label> <input class="form-control"
+					id="tTime" ng-model="editVm.reservation.toTime">
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-lg-3">
+				<label for="noofperson"
+					title="If more than 16 ppl, make seperate reservations"> No
+					of people for Reservation : </label> <input type="number"
+					class="form-control" id="noofperson" min="1" max="16"
+					placeholder="Number of person for a table"
+					ng-model="editVm.reservation.partySize">
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="form-group">
+					<label for="comment">List down specific requirement to be
+						taken care of :</label>
+					<textarea class="form-control" rows="5" id="comment"
+						ng-model="editVm.reservation.notes"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-2">
+				<button type="submit" ng-click="editVm.editResFn()"
+					class="btn btn-group-lg btn-primary form-control">Submit
+					Changes</button>
+			</div>
+		</div>
+		<br>
+	</div>
+	<div class="row">
+		<div class="alert alert-success" ng-show="editVm.result.showAlert">
+			<button type="button" class="close"
+				data-ng-click="switchBool('editVm.result.showAlert')">×</button>
+			{{editVm.result.successMsg}}
+		</div>
+	</div>
+</div>
