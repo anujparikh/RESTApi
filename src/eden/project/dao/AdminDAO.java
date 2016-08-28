@@ -145,4 +145,34 @@ public class AdminDAO {
 		
 		return resPro;
 	}
+
+	public RestaurantProfile fnFetchProfileDetails() throws AppException{
+		
+		Connection conn = DBUtils.connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		RestaurantProfile resPro = new RestaurantProfile();
+
+		try {
+			ps = conn.prepareStatement("SELECT * FROM RESTAURANT_PROFILE");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				
+				resPro.setResName(rs.getString(1));
+				resPro.setResEmail(rs.getString(2));
+				resPro.setResPhoneNo(rs.getString(3));
+				resPro.setResAddress(rs.getString(4));
+				resPro.setIsAutoAssign(rs.getString(5));
+				resPro.setDaysClose(rs.getString(6));
+				resPro.setResOpenTime(rs.getString(7));
+				resPro.setResCloseTime(rs.getString(8));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AppException(e.getMessage(), e.getCause());
+		}
+
+		return resPro;
+	}
 }

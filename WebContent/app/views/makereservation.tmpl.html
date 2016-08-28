@@ -1,0 +1,98 @@
+<div class="container">
+	<div class="container">
+		<form role="form" name="makeReservationForm"
+			ng-submit="resVm.makeResFn()">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="fname"> First Name : </label> <input type="text"
+						class="form-control" id="fname"
+						ng-model="resVm.reservation.firstName"
+						placeholder="Enter your First name">
+				</div>
+				<div class="col-md-4">
+					<label for="lname"> Last Name : </label> <input type="text"
+						class="form-control" id="lname"
+						ng-model="resVm.reservation.lastName"
+						placeholder="Enter your Last name">
+				</div>
+				<div class="col-md-4">
+					<label for="phno"> Phone Number : </label> <input
+						class="form-control" id="phno"
+						ng-model="resVm.reservation.phoneNo"
+						placeholder="Enter your Phone number">
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-md-6">
+					<label for="email"> Email Address : </label> <input type="email"
+						class="form-control" id="email" ng-model="resVm.reservation.email"
+						placeholder="Enter your Email Address">
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<label for="date"> Date : </label> <input type="date"
+						class="form-control" ng-model="resVm.reservation.reservationDate"
+						id="date" format-date>
+				</div>
+				<div class="col-lg-3">
+					<label for="ftime"> From Time : </label> <input
+						class="form-control" ng-model="resVm.reservation.fromTime"
+						id="ftime">
+				</div>
+				<div class="col-lg-3">
+					<label for="ttime"> To Time : </label> <input class="form-control"
+						ng-model="resVm.reservation.toTime" id="ttime">
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-lg-3">
+					<label for="noofperson"
+						title="If more than 16 ppl, make seperate reservations">
+						No of people for Reservation : </label> <input type="number"
+						class="form-control" id="noofperson" min="1" max="16"
+						ng-model="resVm.reservation.partySize"
+						placeholder="Number of person for a table">
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="form-group">
+						<label for="comment">List down specific requirement to be
+							taken care of :</label>
+						<textarea class="form-control" rows="5"
+							ng-model="resVm.reservation.notes" id="comment"></textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-2">
+					<button type="submit"
+						class="btn btn-group-lg btn-primary form-control">Make
+						Reservation</button>
+				</div>
+				<div class="col-lg-2">
+					<button type="reset"
+						class="btn btn-group-lg btn-primary form-control">{{resVm.result.button}}</button>
+				</div>
+			</div>
+			<br>
+		</form>
+		<div class="row">
+			<div class="alert alert-success" ng-show="resVm.result.showAlert">
+				<button type="button" class="close"
+					data-ng-click="switchBool('resVm.result.showAlert')">×</button>
+				{{resVm.result.successMsg}}
+			</div>
+		</div>
+	</div>
+</div>

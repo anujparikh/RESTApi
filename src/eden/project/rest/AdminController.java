@@ -74,6 +74,27 @@ public class AdminController {
 		return obj;
 	}
 	
+	@GET
+	@Path("/profile")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Profile fetching API", notes = "This API would all the details related to restaurant profile")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 500, message = "Internal Server Error"),
+			@ApiResponse(code = 404, message = "Not Found"), })
+	public RestaurantProfile fetchRestaurantProfile() {
+		RestaurantProfile resProObj = null;
+		try {
+			
+			AdminDAO admDao = new AdminDAO();
+			resProObj = admDao.fnFetchProfileDetails();
+
+		} catch (AppException e) {
+			e.printStackTrace();
+			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
+		}
+		return resProObj;
+	}
+	
 	@PUT
 	@Path("/edittable/{resId}/{tableid}")
 	@Consumes(MediaType.APPLICATION_JSON)
