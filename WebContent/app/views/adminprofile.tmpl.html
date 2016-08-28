@@ -1,0 +1,84 @@
+<div ng-include="'app/views/adminheader.tmpl.html'"></div>
+<div ng-include="'app/views/adminoptions.tmpl.html'"></div>
+<div class="container">
+	<div class="col-lg-3">
+		<ul class="nav nav-tabs tabs-left">
+			<li class="active"><a href="#/profile/resprofile" data-toggle="tab"><i
+					class="fa fa-user"></i> Restaurant Profile</a></li>
+			<li><a href="#/profile/assigntable" data-toggle="tab"><i
+					class="fa fa-pencil"></i> Assign or Change Table</a></li>
+			<li><a href="#/profile/ressettings" data-toggle="tab"><i
+					class="fa fa-cog"></i> Restaurant Settings</a></li>
+			<li><a href="#/profile/contactlist" data-toggle="tab"><i
+					class="fa fa-phone"></i> Contact List</a></li>
+		</ul>
+	</div>
+	<div class="col-xs-9">
+		<div class="tab-content">
+			<div class="tab-pane active" id="info">
+				<section>
+					<div class="container">
+						<div class="container">
+							<br>
+
+							<form class="form-inline" role="form" ng-submit="prfVm.editRestaurantDetails()">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="rName"> Name : </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="rName"
+											ng-model="prfVm.restaurant.resName">
+									</div>
+								</div>
+								<br>
+
+								<div class="row">
+									<div class="col-md-3">
+										<label for="rEmail"> Email Address : </label>
+									</div>
+									<div class="col-md-9">
+										<input type="email" class="form-control" id="rEmail"
+											ng-model="prfVm.restaurant.resEmail">
+									</div>
+								</div>
+								<br>
+
+								<div class="row">
+									<div class="col-lg-3">
+										<label for="contactNo"> Contact Number : </label>
+									</div>
+									<div class="col-lg-9">
+										<input class="form-control" id="contactNo"
+											ng-model="prfVm.restaurant.resPhoneNo">
+									</div>
+								</div>
+								<br>
+
+								<div class="row">
+									<div class="col-lg-3">
+										<label for="rAddress"> Restaurant Address : </label>
+									</div>
+									<div class="col-lg-9">
+										<textarea type="text" class="form-control" id="rAddress"
+											rows="4" cols="40" ng-model="prfVm.restaurant.resAddress">
+                                                    </textarea>
+									</div>
+								</div>
+								<br>
+
+								<div class="row">
+									<div class="col-lg-12">
+										<button type="submit"
+											class="btn btn-group-lg btn-primary form-control">Submit
+											Changes</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>

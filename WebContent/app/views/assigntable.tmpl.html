@@ -1,0 +1,43 @@
+<div ng-include="'app/views/adminheader.tmpl.html'"></div>
+<div ng-include="'app/views/adminoptions.tmpl.html'"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<ul class="nav nav-tabs tabs-left">
+				<li><a href="#/profile/resprofile" data-toggle="tab"><i
+						class="fa fa-user"></i> Restaurant Profile</a></li>
+				<li class="active"><a href="#/profile/assigntable" data-toggle="tab"><i
+						class="fa fa-pencil"></i> Assign or Change Table</a></li>
+				<li><a href="#/profile/ressettings" data-toggle="tab"><i
+						class="fa fa-cog"></i> Restaurant Settings</a></li>
+				<li><a href="#/profile/contactlist" data-toggle="tab"><i
+						class="fa fa-phone"></i> Contact List</a></li>
+			</ul>
+		</div>
+		<div class="col-lg-9 tab-pane" id="assigntable">
+			<br>
+			<table class="table table-condensed table-striped">
+				<thead>
+					<tr>
+						<th>Table#</th>
+						<th>Size</th>
+						<th>Status</th>
+						<th>Since</th>
+						<th>CNF#</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>6</td>
+						<td>Occupied</td>
+						<td>5:30PM</td>
+						<td>
+							<button type="button" class="btn btn-link">ABC123</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,62 @@
+<div ng-include="'app/views/adminheader.tmpl.html'"></div>
+<div ng-include="'app/views/adminoptions.tmpl.html'"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<ul class="nav nav-tabs tabs-left">
+				<li><a href="#/profile/resprofile" data-toggle="tab"><i
+						class="fa fa-user"></i> Restaurant Profile</a></li>
+				<li><a href="#/profile/assigntable" data-toggle="tab"><i
+						class="fa fa-pencil"></i> Assign or Change Table</a></li>
+				<li><a href="#/profile/ressettings" data-toggle="tab"><i
+						class="fa fa-cog"></i> Restaurant Settings</a></li>
+				<li class="active"><a href="#/profile/contactlist"
+					data-toggle="tab"><i class="fa fa-phone"></i> Contact List</a></li>
+			</ul>
+		</div>
+		<div class="col-lg-9 tab-pane" id="assigntable">
+			<div class="tab-pane" id="contactList">
+
+				<br>
+
+				<div class="input-group">
+					<input type="text" class="form-control"
+						placeholder="Search by Name" id="searchName">
+
+					<div class="input-group-btn">
+						<button class="btn btn-primary" type="submit">
+							<i class="glyphicon glyphicon-search"></i>
+						</button>
+					</div>
+				</div>
+				<ul class="pagination pull-right">
+					<li><a href="#">&laquo;</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
+				<table class="table table-condensed table-striped">
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Name</th>
+							<th>Email Address</th>
+							<th>Contact #</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Anuj Pairkh</td>
+							<td>anujparikh1@gmail.com</td>
+							<td>248-***-****</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

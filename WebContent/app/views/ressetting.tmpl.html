@@ -1,0 +1,78 @@
+<div ng-include="'app/views/adminheader.tmpl.html'"></div>
+<div ng-include="'app/views/adminoptions.tmpl.html'"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<ul class="nav nav-tabs tabs-left">
+				<li><a href="#/profile/resprofile" data-toggle="tab"><i
+						class="fa fa-user"></i> Restaurant Profile</a></li>
+				<li><a href="#/profile/assigntable" data-toggle="tab"><i
+						class="fa fa-pencil"></i> Assign or Change Table</a></li>
+				<li class="active"><a href="#/profile/ressettings"
+					data-toggle="tab"><i class="fa fa-cog"></i> Restaurant Settings</a></li>
+				<li><a href="#/profile/contactlist" data-toggle="tab"><i
+						class="fa fa-phone"></i> Contact List</a></li>
+			</ul>
+		</div>
+		<div class="col-lg-9 tab-pane" id="assigntable">
+			<form class="form-inline" role="form" ng-submit="prfVm.editRestaurantDetails()">
+				<div class="row">
+					<div class="col-md-4">
+						<label for="autoassign"> Auto Assign Table : </label>
+					</div>
+					<div class="col-md-8">
+						<label> <input id="autoassign" ng-model="prfVm.settingObj.value" type="checkbox">
+						</label>
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-md-4">
+						<label for="rEmail"> Days Closed : </label>
+					</div>
+					<div class="col-md-8">
+						<select name="days" ng-model="prfVm.settingObj.daysclosed" multiple>
+							<option value="sunday">Sunday</option>
+							<option value="monday">Monday</option>
+							<option value="tuesday">Tuesday</option>
+							<option value="wednesday">Wednesday</option>
+							<option value="thursday">Thursday</option>
+							<option value="friday">Friday</option>
+							<option value="saturday">Saturday</option>
+						</select>
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<label for="opentime"> Restaurant Opening Time : </label>
+					</div>
+					<div class="col-lg-8">
+						<input class="form-control" id="opentime" ng-model="prfVm.restaurant.resOpenTime">
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<label for="closetime"> Restaurant Closing Time : </label>
+					</div>
+					<div class="col-lg-8">
+						<input class="form-control" id="closetime" ng-model="prfVm.restaurant.resCloseTime">
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<button type="submit"
+							class="btn btn-group-lg btn-primary form-control">Submit
+							Changes</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
